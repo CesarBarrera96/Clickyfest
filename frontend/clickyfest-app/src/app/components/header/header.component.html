@@ -1,0 +1,46 @@
+<!-- header.html - VERSIÓN FINAL CON NAVEGACIÓN -->
+<header class="main-header">
+  
+  <!-- Esta parte no cambia -->
+  <div class="header-bar">
+    <a [routerLink]="['/']" class="logo">Clickyfest</a>
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Este es el menú lateral que se muestra/oculta -->
+  <nav class="nav-menu" [class.active]="isMenuOpen">
+    <!-- Botón para cerrar el menú (no cambia) -->
+    <button class="close-menu" (click)="toggleMenu()">×</button>
+    
+    <!-- ------------------- INICIO DE LOS CAMBIOS ------------------- -->
+    
+    <!-- Enlace principal condicional: Admin="Ir a Marketplace", Público="Todos" -->
+    <a *ngIf="showLogout" [routerLink]="['/']" (click)="toggleMenu()">Ir a Marketplace</a>
+    <a *ngIf="!showLogout" [routerLink]="['/']" (click)="toggleMenu()">Todos</a>
+    
+    <!-- Bucle de Categorías visible solo fuera de admin -->
+    <ng-container *ngIf="!showLogout">
+      <a *ngFor="let category of categories"
+         [routerLink]="['/']"
+         [queryParams]="{ categoria: category.categoryID }"
+         (click)="toggleMenu(); logNavigation(category)">
+        {{ category.categoryName }}
+      </a>
+    </ng-container>
+    
+    <!-- -------------------- FIN DE LOS CAMBIOS -------------------- -->
+
+    <!-- Enlace para Cerrar Sesión (Solo en admin) -->
+    <ng-container *ngIf="showLogout">
+      <div class="nav-separator"></div>
+      <a (click)="logout()" style="cursor: pointer;" class="logout-link">Cerrar Sesión</a>
+    </ng-container>
+  </nav>
+
+  <!-- Fondo oscuro (no cambia) -->
+  <div class="overlay" [class.active]="isMenuOpen" (click)="toggleMenu()"></div>
+</header>

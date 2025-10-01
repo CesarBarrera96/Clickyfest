@@ -1,0 +1,32 @@
+<!-- marketplace.html - CÓDIGO FINAL -->
+
+<div class="filter-container">
+  <div class="filter-wrapper">
+    <!-- Icono de Filtro (SVG) -->
+    <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
+    </svg>
+    
+    <select #categorySelect (change)="onCategoryChange($event)" class="category-filter">
+      <option value="" selected>¿Qué vas a celebrar?</option>
+      <option value="">Todos</option>
+      <option *ngFor="let category of categories" [value]="category.categoryID">
+        {{ category.categoryName }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<div class="product-grid" *ngIf="products">
+  <app-product-card 
+    *ngFor="let product of products" 
+    [product]="product">
+  </app-product-card>
+</div>
+
+<app-pagination
+  [currentPage]="currentPage"
+  [totalItems]="totalItems"
+  [itemsPerPage]="pageSize"
+  (pageChange)="onPageChange($event)">
+</app-pagination>

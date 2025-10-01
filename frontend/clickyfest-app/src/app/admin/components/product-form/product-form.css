@@ -1,0 +1,188 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px); /* Mejora visual del fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px; /* Evita que el modal pegue con los bordes en pantallas pequeñas */
+  z-index: 10050; /* Elevado para estar sobre cualquier otro elemento */
+}
+
+.form-container {
+  background-color: var(--surface-color);
+  padding: 20px;
+  border-radius: 16px; /* Bordes totalmente redondeados */
+  border: 1px solid var(--border-color); /* Sutil delineado */
+  box-shadow: 0 10px 30px var(--shadow-color), 0 6px 12px var(--shadow-color);
+  width: 92%;
+  max-width: 720px; /* Modal un poco más ancho */
+  max-height: 90vh;
+  overflow: hidden; /* Clipa el contenido para respetar el borde redondeado en TODAS las esquinas */
+  animation: modalIn 160ms ease-out; /* Aparición suave */
+
+  /* Mantener visible el footer con botones */
+  display: flex;
+  flex-direction: column;
+}
+
+/* El formulario interno scrollea, no el contenedor (para no perder el redondeado derecho) */
+.form-container form {
+  /* Permite que el formulario tome el espacio disponible y haga scroll interno */
+  flex: 1 1 auto;
+  min-height: 0; /* Necesario para que flex permita overflow en hijos */
+  overflow: auto;
+  padding-right: 8px; /* Espacio para scrollbar */
+}
+
+/* Estilo de scrollbar (WebKit) para un look más limpio */
+.form-container form::-webkit-scrollbar {
+  width: 8px;
+}
+.form-container form::-webkit-scrollbar-thumb {
+  background-color: #cfd4da;
+  border-radius: 8px;
+}
+.form-container form::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Animación de entrada */
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(232, 199, 207, 0.25);
+}
+
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.image-preview-item {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--accent-blush);
+}
+
+.product-image-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.icon-btn {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.8rem;
+}
+
+.icon-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.icon-heart {
+  top: 5px;
+  left: 5px;
+  color: var(--border-color); /* Corazón apagado */
+}
+
+.icon-heart.featured {
+  color: var(--accent-gold); /* Corazón encendido (dorado de marca) */
+}
+
+.icon-delete {
+  top: 5px;
+  right: 5px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+
+  /* Mantener los botones visibles aunque el formulario haga scroll */
+  position: sticky;
+  bottom: 0;
+  background: var(--surface-color); /* Fondo para que no se vea el contenido detrás */
+  padding-bottom: 8px;
+}
+
+.submit-btn,
+.cancel-btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  color: #fff;
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.submit-btn:disabled {
+  background-color: var(--border-color);
+  color: var(--text-muted);
+  border-color: var(--border-color);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.cancel-btn {
+  background-color: var(--accent-blush);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  opacity: 0.98;
+}
+.cancel-btn:hover {
+  opacity: 1;
+}

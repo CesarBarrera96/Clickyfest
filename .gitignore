@@ -1,0 +1,29 @@
+# .gitignore para proyectos .NET y generales
+
+## Carpetas de compilación de .NET
+[Bb]in/
+[Oo]bj/
+
+## Archivos generados por Visual Studio y VS Code
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Archivos de compilación y empaquetado
+*.dll
+*.exe
+*.pdb
+*.nupkg
+*.snk
+
+## Carpetas de Node.js (MUY IMPORTANTE)
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# Ignorar archivos de configuración de desarrollo
+appsettings.Development.json

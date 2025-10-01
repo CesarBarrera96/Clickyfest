@@ -1,0 +1,101 @@
+/* styles.css */
+
+/* Regla para el contenido principal que viene del router-outlet */
+main {
+  display: block; /* Asegura que se comporte como un bloque */
+  padding-top: 64px; /* Solo espacio para el header fijo */
+  width: 100%; /* Ocupa todo el ancho posible */
+}
+
+:root {
+  /* Brand palette - Elegant pastels */
+  --primary-color: #E8C7CF; /* Rose Quartz */
+  --secondary-color: #91B7A1; /* Sage */
+  --accent-gold: #C6A45C;
+
+  /* Neutrals */
+  --text-color: #2A2A2A; /* Charcoal */
+  --text-muted: #5C5C5C;
+  --background-color: #FAF7F5; /* Soft ivory blush */
+  --surface-color: #FFFFFF;
+  --card-background: #FFFFFF;
+  --border-color: #EAE2DC;
+
+  /* Effects */
+  --shadow-color: rgba(28, 25, 23, 0.08);
+  --shadow-lg: 0 8px 24px rgba(28, 25, 23, 0.12);
+
+  /* Category accents */
+  --accent-blush: #EED9DF;
+  --accent-lavender: #CDB7E3;
+  --accent-baby-blue: #BFD7ED;
+  --accent-mint: #CFE9DA;
+  --accent-peach: #FAD7C8;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* Typography scale */
+  --font-serif: "Merriweather", serif;
+  --font-sans: "Poppins", "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --h1: 2rem;
+  --h2: 1.5rem;
+  --h3: 1.25rem;
+  --body: 1rem;
+  --small: 0.875rem;
+}
+
+
+/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+body {
+  font-family: var(--font-sans);
+  font-size: var(--body);
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+select, button {
+  font-family: inherit; /* Hereda la fuente del body */
+}
+
+/* Reducimos los paddings laterales solo en pantallas pequeñas */
+@media (max-width: 480px) {
+  main {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+/* Ajustes globales para evitar que el header se superponga a los modales */
+body.modal-open {
+  overflow: hidden; /* Evita scroll del fondo durante el modal */
+}
+
+/* Cuando haya un modal abierto, el header deja de ser fixed para no crear conflictos de stacking/containing blocks */
+body.modal-open .main-header {
+  position: static !important;
+  z-index: auto !important;
+  pointer-events: none; /* Evita interacciones accidentales con el header detrás del modal */
+}

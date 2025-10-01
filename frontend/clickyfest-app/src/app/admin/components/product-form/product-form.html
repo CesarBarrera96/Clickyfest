@@ -1,0 +1,88 @@
+<!-- product-form.html -->
+<div class="popup-overlay" (click)="onCancel()">
+  <div class="form-container" (click)="$event.stopPropagation()">
+    <h2>{{ isEditMode ? 'Editar Producto' : 'Crear Producto' }}</h2>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Nombre del Producto</label>
+        <input id="name" formControlName="name" class="form-control" required>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+        <label for="price">Precio</label>
+        <input id="price" type="number" formControlName="price" class="form-control" required>
+      </div>
+
+      <!-- Discount Price -->
+      <div class="form-group">
+        <label for="discountPrice">Precio de Descuento (Opcional)</label>
+        <input id="discountPrice" type="number" formControlName="discountPrice" class="form-control">
+      </div>
+
+      <!-- Discount End Date -->
+      <div class="form-group">
+        <label for="discountEndDate">Fecha Fin de Descuento</label>
+        <input id="discountEndDate" type="date" formControlName="discountEndDate" class="form-control">
+      </div>
+
+      <!-- Demo URL -->
+      <div class="form-group">
+        <label for="demoUrl">URL de Demostración</label>
+        <input id="demoUrl" formControlName="demoUrl" class="form-control">
+      </div>
+
+      <!-- Category -->
+      <div class="form-group">
+        <label for="categoryID">Categoría</label>
+        <select id="categoryID" formControlName="categoryID" class="form-control" required>
+          <option [ngValue]="null" disabled>Selecciona una categoría</option>
+          <option *ngFor="let category of categories" [value]="category.categoryID">
+            {{ category.categoryName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Image Upload -->
+      <div class="form-group">
+        <label for="images">Imágenes</label>
+        <input id="images" type="file" multiple (change)="onFileSelected($event)" class="form-control">
+      </div>
+
+      <!-- Image Preview -->
+      <div class="image-preview-container">
+        <div *ngFor="let image of productImages" class="image-preview-item">
+          <img [src]="image.imageUrl" class="product-image-thumbnail">
+          <div
+            class="icon-btn icon-heart"
+            [class.featured]="image.isFeatured"
+            title="Marcar como portada"
+            (click)="toggleFeatured(image)"
+          >
+            &#10084;
+          </div>
+          <div class="icon-btn icon-delete" (click)="deleteImage(image.productImageID)">
+            &times;
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+          {{ isEditMode ? 'Guardar Cambios' : 'Crear Producto' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

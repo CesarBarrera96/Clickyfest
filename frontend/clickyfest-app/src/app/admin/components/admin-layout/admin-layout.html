@@ -1,0 +1,72 @@
+<!-- admin-layout.html -->
+<div class="container">
+  <header class="header">
+    <h1>Gestión de Productos</h1>
+    <button class="btn btn-primary" (click)="openCreateProductForm()">+ Nuevo Producto</button>
+  </header>
+
+  <div class="table-tools">
+    <div class="tools-left">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Buscar por nombre..."
+        (input)="onSearchTermChange($event.target.value)"
+        [value]="searchTerm" />
+    </div>
+    <div class="tools-right">
+      <span class="tool-info" *ngIf="selectedCategoryId">Categoría: {{ categoryMap[selectedCategoryId] }}</span>
+      <span class="tool-info" *ngIf="priceSort === 'asc'">Precio: asc</span>
+      <button class="btn btn-success" (click)="saveOrder()" [disabled]="!canReorder || !pendingOrder || savingOrder">Guardar orden</button>
+      <span class="tool-info warn" *ngIf="!canReorder">Desactiva búsqueda/orden por precio para reordenar</span>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Orden</th>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>
+            <span class="th-label" (click)="resetCategoryFilter()">Categoría</span>
+            <button type="button" class="th-btn" title="Cambiar categoría" (click)="cycleCategory()">▶</button>
+          </th>
+          <th>
+            <span class="th-label" (click)="resetPriceSort()">Precio</span>
+            <button type="button" class="th-btn" [class.active]="priceSort === 'asc'" title="Ordenar de menor a mayor" (click)="togglePriceSort()">▲</button>
+          </th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody cdkDropList (cdkDropListDropped)="onDrop($event)" [cdkDropListDisabled]="!canReorder">
+        <tr *ngFor="let product of displayedProducts; let i = index" cdkDrag>
+          <td class="drag-cell">
+            <span cdkDragHandle class="drag-handle" [title]="canReorder ? 'Arrastra para reordenar' : 'Reordenamiento deshabilitado'">≡</span>
+            <span class="order-index">{{ i + 1 }}</span>
+          </td>
+          <td>
+            <img [src]="getFeaturedImageUrl(product)" alt="{{ product.name }}" class="product-thumbnail">
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.category?.categoryName || categoryMap[product.categoryID] }}</td>
+          <td>{{ product.price | currency }}</td>
+          <td>
+            <button class="btn btn-secondary btn-sm" (click)="openEditProductForm(product)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.productID)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="scroll-top-btn" *ngIf="showScrollTop" (click)="scrollTop()" title="Volver arriba">↑</button>
+
+  <!-- Product Form Pop-up -->
+  <app-product-form
+  *ngIf="showProductForm"
+  [product]="selectedProduct"
+  (productSaved)="onProductSaved()"
+  (cancelForm)="closeProductForm()">
+  </app-product-form>
+</div>

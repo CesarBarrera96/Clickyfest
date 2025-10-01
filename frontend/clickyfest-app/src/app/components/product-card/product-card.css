@@ -1,0 +1,81 @@
+/* product-card.css - VERSIÓN FINAL Y COMPLETA */
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--surface-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 14px var(--shadow-color);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-image-container img {
+  width: 100%;
+  display: block;
+  /* La regla clave para mantener la proporción cuadrada */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background-color: var(--accent-blush);
+}
+
+.card-info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Permite que esta sección se estire para llenar el espacio */
+}
+
+.product-name {
+  font-size: 1rem;
+  margin: 0 0 8px 0;
+  line-height: 1.35;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--text-color);
+  flex-grow: 1; /* Ocupa el espacio vertical sobrante */
+}
+
+.price-container {
+  font-weight: bold;
+  margin-top: auto; /* Se empuja a sí mismo hacia abajo */
+}
+
+.original-price, .discount-price, .final-price {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-right: 8px;
+}
+
+.discount-price {
+  color: var(--secondary-color); /* Sage */
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.final-price {
+  color: var(--accent-gold);
+  font-size: 1.05rem;
+  font-weight: 600;
+}

@@ -1,0 +1,205 @@
+/* product-detail.css - VERSIÓN FINAL */
+.product-detail-container {
+  padding: 0;
+}
+
+/* Espacio sutil bajo el header en móvil sin afectar escritorio */
+@media (max-width: 767px) {
+  .image-carousel {
+    margin-top: 8px; /* Ligero espacio bajo el encabezado en móvil */
+  }
+}
+
+.image-carousel .main-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  background-color: var(--accent-blush);
+}
+
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Cambiado a 'contain' para que se vea la invitación completa */
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center; /* Centra los puntos */
+  padding: 15px 0; /* Añade padding vertical */
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--border-color); /* Color base */
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: var(--primary-color); /* Color activo */
+}
+
+.product-info {
+  padding: 24px 16px;
+}
+
+.product-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-serif);
+  letter-spacing: 0.2px;
+  color: var(--text-color);
+  margin: 0 0 16px 0;
+}
+
+/* En product-detail.css */
+
+.price-container {
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Estilo para el precio original (cuando hay descuento) */
+.original-price {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+   /* ¡AÑADE ESTA LÍNEA DE VUELTA! */
+  margin-right: 10px; /* O el valor que prefieras, ej. 8px */
+}
+
+/* Estilo para el precio con descuento */
+.discount-price {
+  font-weight: bold;
+  color: var(--secondary-color); /* Sage */
+}
+
+/* Estilo para el precio final (cuando NO hay descuento) */
+.final-price {
+  font-weight: bold;
+  color: var(--accent-gold); /* Gold accent */
+}
+
+.product-description {
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn {
+  padding: 15px;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+}
+
+.btn-primary {
+  background-color: #25D366;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #000;
+  color: white;
+  border: 1px solid #000;
+}
+
+/* En product-detail.css */
+.btn-primary {
+  background-color: #25D366;
+  color: white;
+  
+  /* --- AÑADE ESTAS LÍNEAS --- */
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center;    /* Centra el contenido verticalmente */
+  gap: 10px;              /* Añade un espacio entre el texto y el ícono */
+}
+
+/* En product-detail.css */
+
+:host {
+  display: block;
+}
+
+/* Móvil: sin margen negativo para dejar un espacio profesional bajo el header */
+@media (max-width: 767px) {
+  :host {
+    margin-top: 0;
+  }
+}
+
+/* Escritorio: conservamos el ajuste fino hacia arriba */
+@media (min-width: 768px) {
+  :host {
+    margin-top: -36px;
+  }
+}
+
+/* El resto de tus estilos (.product-detail-container, etc.) siguen igual */
+
+/* --- ESTILOS PARA ESCRITORIO --- */
+/* Esta regla solo se aplicará si el ancho de la ventana es de 768px o más */
+@media (min-width: 768px) {
+  
+  .product-detail-container {
+    /* 1. Convertimos el contenedor principal en una cuadrícula de 2 columnas */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+    gap: 40px; /* Un espacio generoso entre las columnas */
+    align-items: start; /* Alinea los elementos al principio de su celda */
+    padding: 40px; /* Añade un poco de aire en los bordes */
+  }
+
+  .product-info {
+    /* 2. Reseteamos el padding que tenía en móvil para evitar duplicarlo */
+    padding: 0;
+    margin-top: 20px; /* separa el texto del encabezado en escritorio */
+  }
+
+  /* Orden vertical clara y sin superposición entre imagen y carrusel (puntos) */
+  .image-carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 560px; /* Controla el ancho del bloque de imagen en escritorio */
+    margin: 0 auto;
+  }
+
+  .image-carousel .main-image {
+    position: static;            /* Evita superponerse al carrusel al hacer scroll */
+    margin-bottom: 16px;         /* Separación clara con los puntos */
+    width: 100%;
+    background-color: var(--accent-blush);   /* mismo fondo que móvil para evitar borde blanco */
+    border: none;                 /* sin borde blanco alrededor */
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    aspect-ratio: 4 / 5;         /* Proporción agradable en escritorio */
+    max-height: calc(100vh - 180px); /* Evita chocar con el header en pantallas bajas */
+    overflow: hidden;             /* asegura que nada se salga del contenedor redondeado */
+  }
+
+  .carousel-dots {
+    position: static;
+    margin-top: 12px;  /* un poco más de aire */
+    padding: 10px 0;   /* refuerza separación sin afectar móvil */
+  }
+}

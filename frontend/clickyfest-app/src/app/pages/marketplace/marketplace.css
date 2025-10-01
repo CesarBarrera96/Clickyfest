@@ -1,0 +1,135 @@
+:host {
+  display: block;
+  padding: 16px;
+}
+
+/* marketplace.css */
+.filter-container {
+  position: fixed; /* Cambiado a fixed para que siempre esté visible */
+  top: 64px; /* Se pega debajo del header */
+  left: 0; /* Asegura que ocupe todo el ancho */
+  width: 100%;
+  padding: 12px 16px;
+  background-color: var(--surface-color);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-color);
+  transition: box-shadow 0.3s ease;
+}
+
+.filter-container:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.filter-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+}
+
+.filter-icon {
+  position: absolute;
+  left: 15px;
+  width: 20px;
+  height: 20px;
+  fill: var(--text-muted); /* Color del icono */
+  pointer-events: none; /* Para que el clic atraviese el icono */
+}
+
+.category-filter { /* Cambiado de .category-select a .category-filter */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 9999px; /* Bordes completamente redondeados */
+  padding: 12px 45px 12px 50px; /* Padding: top, right (flecha), bottom, left (icono) */
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.category-filter:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(232, 199, 207, 0.25); /* halo en hover acorde a --primary-color */
+}
+
+.category-filter:focus {
+  outline: none;
+  border-color: var(--primary-color); /* verde del proyecto */
+  box-shadow: 0 0 0 3px rgba(232, 199, 207, 0.3);
+}
+
+/* Flecha personalizada (re-estilizada) */
+.filter-wrapper::after {
+  content: '›'; /* Usamos un carácter de flecha más sutil */
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--primary-color);
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg); /* Giramos la flecha */
+  pointer-events: none;
+}
+
+/* Opciones del select con mejor presentación */
+.category-filter option {
+  padding: 8px 12px;
+  background: #fff;
+  color: var(--text-color);
+}
+
+/* Eliminamos el estilo de option:checked por inconsistencias entre navegadores */
+
+/* Algunos navegadores usan :focus-visible para selects */
+.category-filter:focus-visible {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(232, 199, 207, 0.3);
+}
+
+/* Estado visual cuando hay un valor seleccionado (no vacío) */
+.category-filter.has-value {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Refuerzo de estado en hover/focus cuando hay valor */
+.category-filter.has-value:hover,
+.category-filter.has-value:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(232, 199, 207, 0.28);
+}
+
+/* Cambiamos el color de la “flecha” cuando hay valor */
+.filter-wrapper.has-value::after {
+  color: var(--primary-color);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, calc(50% - 8px));
+  gap: 16px;
+  margin-top: 64px; /* Compensa el filtro fijo bajo el header */
+}
+
+
+/* Media queries para responsividad de la cuadrícula */
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

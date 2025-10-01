@@ -1,0 +1,28 @@
+<!-- product-card.html -->
+<a [routerLink]="['/producto', product.productID]" class="product-card"> <!-- En el futuro será un enlace -->
+  
+<!-- Contenido corregido para product-card.html -->
+<div class="card-image-container">
+  <img [src]="getFeaturedImageUrl(product)" [alt]="product.name">
+</div>
+
+  <!-- Contenedor de la Información -->
+  <div class="card-info">
+    <p class="product-name">{{ product.name.trim() }}</p>
+    
+    <!-- Contenedor de Precios con Lógica Condicional -->
+    <div class="price-container">
+      <!-- CASO 1: Si hay precio de descuento, muestra ambos -->
+      <div *ngIf="product.discountPrice && product.discountPrice > 0; else noDiscount">
+        <span class="original-price">{{ product.price | currency:'MXN' }}</span>
+        <span class="discount-price">{{ product.discountPrice | currency:'MXN' }}</span>
+      </div>
+
+      <!-- CASO 2: Si no hay descuento, muestra solo el precio normal -->
+      <ng-template #noDiscount>
+        <span class="final-price">{{ product.price | currency:'MXN' }}</span>
+      </ng-template>
+    </div>
+  </div>
+
+</a>
