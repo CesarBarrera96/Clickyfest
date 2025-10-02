@@ -22,12 +22,18 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
+      
+      # --- INICIO DE LA CORRECCIÓN ---
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        # Le decimos explícitamente qué proyecto compilar
+        run: dotnet build backend/ClickyFest.Api/ClickyFest.Api.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        # Y qué proyecto publicar
+        run: dotnet publish backend/ClickyFest.Api/ClickyFest.Api.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+
+      # --- FIN DE LA CORRECCIÓN ---
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -62,4 +68,3 @@ jobs:
           app-name: 'clickyfest-api'
           slot-name: 'Production'
           package: .
-          
